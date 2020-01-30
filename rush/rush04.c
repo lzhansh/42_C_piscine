@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   rush02.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfedosse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lzhansha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 15:06:07 by pfedosse          #+#    #+#             */
-/*   Updated: 2019/03/31 22:09:12 by lzhansha         ###   ########.fr       */
+/*   Created: 2019/03/30 14:11:30 by lzhansha          #+#    #+#             */
+/*   Updated: 2019/03/31 22:01:39 by lzhansha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c);
+int		ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (0);
+}
 
 void	ft_top(int x)
 {
@@ -56,7 +60,7 @@ int		rush(int x, int y)
 	int j;
 
 	j = 1;
-	if (x <= 0 || y <= 0)
+	if (x == 0 || y == 0)
 		return (0);
 	ft_top(x);
 	while (j < y)
@@ -76,5 +80,11 @@ int		rush(int x, int y)
 	}
 	if (j > 1)
 		ft_btm(x);
+	return (0);
+}
+
+int		main(void)
+{
+	rush(5, 1);
 	return (0);
 }

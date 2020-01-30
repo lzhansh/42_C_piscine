@@ -3,51 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   rush02.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfedosse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lzhansha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/30 15:06:07 by pfedosse          #+#    #+#             */
-/*   Updated: 2019/03/31 20:30:34 by pfedosse         ###   ########.fr       */
+/*   Created: 2019/03/30 14:11:30 by lzhansha          #+#    #+#             */
+/*   Updated: 2019/03/30 15:48:34 by lzhansha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c);
-
-void	brush(int stolb, int str)
+int	ft_putchar(char c)
 {
-	int	x;
-	int	y;
+	write(1, &c, 1);
+	return (0);
+}
 
-	x = 0;
-	y = 0;
-	while (x < str)
-	{
-		y = 0;
-		while (y < stolb)
-		{
-			if ((x == 0 && y == 0) || (x == 0 && y == stolb - 1))
+void rush(int x, int y)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (j < y){
+		while (i < x) {
+			if ((i == 0 && j == 0) || (i == x - 1 && j == 0))
 				ft_putchar('A');
-			else if ((x == str - 1 && y == 0) ||
-					(x == str - 1 && y == stolb - 1))
+			else if ((i == 0 && j == y - 1) || (i == x - 1 && j == y - 1))
 				ft_putchar('C');
-			else if ((x == 0) || (x == str - 1) || (y == 0) || (y == stolb - 1))
+			else if ((i == 0 && j > 0 && j < y - 1)	|| (j == 0 && i > 0 && i < x - 1)
+|| (i == x-1 && j > 0 && j < y - 1) || (j == y - 1 && i > 0 && i < x - 1))
 				ft_putchar('B');
 			else
 				ft_putchar(' ');
-			y++;
+			i++;
 		}
-		x++;
+		i = 0;
 		ft_putchar('\n');
+		j++;
 	}
 }
 
-void	rush(int stolb, int str)
+int main()
 {
-	if (stolb <= 0 || str <= 0)
-	{
-		write(1, "pls write > 0\n", 14);
-		return ;
-	}
-	brush(stolb, str);
+	rush(5, 5);
+	return (0);
 }

@@ -1,54 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush00.c                                           :+:      :+:    :+:   */
+/*   rush02.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfedosse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lzhansha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/31 11:06:48 by pfedosse          #+#    #+#             */
-/*   Updated: 2019/03/31 20:09:21 by pfedosse         ###   ########.fr       */
+/*   Created: 2019/03/30 14:11:30 by lzhansha          #+#    #+#             */
+/*   Updated: 2019/03/31 21:45:22 by lzhansha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putchar(char c);
-
-void	brush(int stolb, int str)
+int		ft_putchar(char c)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < str)
-	{
-		y = 0;
-		while (y < stolb)
-		{
-			if ((x == 0 && y == 0) || (x == 0 && y == stolb - 1) ||
-					(x == str - 1 && y == 0) ||
-					(x == str - 1 && y == stolb - 1))
-				ft_putchar('o');
-			else if ((y == stolb - 1) || (y == 0))
-				ft_putchar('|');
-			else if ((x == str - 1) || (x == 0))
-				ft_putchar('-');
-			else
-				ft_putchar(' ');
-			y++;
-		}
-		x++;
-		ft_putchar('\n');
-	}
+	write(1, &c, 1);
+	return (0);
 }
 
-void	rush(int stolb, int str)
+void	ft_top(int x)
 {
-	if (stolb <= 0 || str <= 0)
+	int i;
+
+	i = 0;
+	while (i < x)
 	{
-		write(1, "pls write > 0\n", 14);
-		return ;
+		if (i == 0 || i == x - 1)
+			ft_putchar('o');
+		else
+			ft_putchar('-');
+		i++;
 	}
-	brush(stolb, str);
+	ft_putchar('\n');
+}
+
+int		rush(int x, int y)
+{
+	int i;
+	int j;
+
+	j = 1;
+	if (x == 0 || y == 0)
+		return (0);
+	ft_top(x);
+	while (j < y)
+	{
+		i = 0;
+		while (i < x)
+		{
+			if ((i == 0 && j < y - 1) || (i == x - 1 && j < y - 1))
+				ft_putchar('|');
+			else
+				ft_putchar(' ');
+			i++;
+		}
+		if (j != y - 2)
+			ft_putchar('\n');
+		j++;
+	}
+	if (j > 1)
+		ft_top(x);
+	return (0);
+}
+
+int		main(void)
+{
+	rush(5, 1);
+	return (0);
 }
